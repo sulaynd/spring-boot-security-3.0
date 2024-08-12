@@ -1,8 +1,8 @@
-package com.javatechie.config;
+package com.javatechie.service;
 
+import com.javatechie.config.UserInfoUserDetails;
 import com.javatechie.entity.UserInfo;
 import com.javatechie.repository.UserInfoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,8 +13,13 @@ import java.util.Optional;
 @Component
 public class UserInfoUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserInfoRepository repository;
+    //@Autowired
+    private final UserInfoRepository repository;
+
+    public UserInfoUserDetailsService(UserInfoRepository repository) {
+        this.repository = repository;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

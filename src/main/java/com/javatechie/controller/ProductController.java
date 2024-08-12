@@ -1,5 +1,6 @@
 package com.javatechie.controller;
 
+import com.javatechie.constants.RoleConstants;
 import com.javatechie.dto.Product;
 import com.javatechie.entity.UserInfo;
 import com.javatechie.service.ProductService;
@@ -27,13 +28,19 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+   // @PreAuthorize("hasRole('"+ RoleConstants.ADMIN+ "')")
+    @PreAuthorize("hasAuthority('"+ RoleConstants.ADMIN+ "')")
     public List<Product> getAllTheProducts() {
         return service.getProducts();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+   // @PreAuthorize("hasRole('"+ RoleConstants.ADMIN+ "')")
+    @PreAuthorize("hasAnyRole('" + RoleConstants.USER + "','" + RoleConstants.ADMIN + "')")
+   // @PreAuthorize("hasRole('" + RoleConstants.USER + "')" +
+    //        " || hasRole('" + RoleConstants.ADMIN + "')" )
     public Product getProductById(@PathVariable int id) {
         return service.getProduct(id);
     }
